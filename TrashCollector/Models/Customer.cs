@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -20,5 +21,9 @@ namespace TrashCollector.Models
         [ForeignKey("Pickup")]
         public int PickupId { get; set; }
         public Pickup Pickup { get; set; }
+
+        [ForeignKey("IdentityUser")]
+        public string IdentityUserId { get; set; }
+        public IdentityUser IdentityUser { get; set; }
     }
 }

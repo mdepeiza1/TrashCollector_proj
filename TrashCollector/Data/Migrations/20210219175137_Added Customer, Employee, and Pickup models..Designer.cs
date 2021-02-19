@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210219175137_Added Customer, Employee, and Pickup models.")]
+    partial class AddedCustomerEmployeeandPickupmodels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,17 +50,10 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d0a9a96d-cfea-4e6e-aab8-d62249a82514",
-                            ConcurrencyStamp = "f2d86acd-7ccc-4794-ac3e-fc2481561ac3",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = "62122961-f88a-4f06-96b4-9656f1c2e8ee",
-                            ConcurrencyStamp = "4829a900-ad7a-4e03-ba1d-29b40911e0a6",
-                            Name = "Employee",
-                            NormalizedName = "EMPLOYEE"
+                            Id = "1ecd795d-6914-437b-9a67-13c37b3ec048",
+                            ConcurrencyStamp = "f6d8a5c5-d71b-4593-af17-25ad05c82baa",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
                         });
                 });
 
@@ -250,9 +245,6 @@ namespace TrashCollector.Data.Migrations
                     b.Property<DateTime>("ExtraDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -263,8 +255,6 @@ namespace TrashCollector.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("IdentityUserId");
 
                     b.HasIndex("PickupId");
 
@@ -284,17 +274,12 @@ namespace TrashCollector.Data.Migrations
                     b.Property<int>("DayOfWeekSelectedByEmployee")
                         .HasColumnType("int");
 
-                    b.Property<string>("IdentityUserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<int>("ZipCode")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("IdentityUserId");
 
                     b.ToTable("Employees");
                 });
@@ -370,10 +355,6 @@ namespace TrashCollector.Data.Migrations
 
             modelBuilder.Entity("TrashCollector.Models.Customer", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
-
                     b.HasOne("TrashCollector.Models.Pickup", "Pickup")
                         .WithMany()
                         .HasForeignKey("PickupId")
@@ -388,10 +369,6 @@ namespace TrashCollector.Data.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
-                        .WithMany()
-                        .HasForeignKey("IdentityUserId");
                 });
 #pragma warning restore 612, 618
         }
