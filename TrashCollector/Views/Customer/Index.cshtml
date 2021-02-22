@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<TrashCollector.Models.Customer>
+@*@model TrashCollector.Models.Customer*@
 
 @{
     ViewData["Title"] = "Index";
@@ -32,47 +33,70 @@
                 @Html.DisplayNameFor(model => model.EndDateOfSuspension)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Pickup)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Pickup)
+                </th>*@
             @*<th>
-                @Html.DisplayNameFor(model => model.IdentityUser)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.IdentityUser)
+                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DayOfWeekChosenByCustomer)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExtraDay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AmountToPay)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StartDateOfSuspension)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EndDateOfSuspension)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Pickup.Id)
-            </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.IdentityUser.Id)
-            </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DayOfWeekChosenByCustomer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExtraDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AmountToPay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartDateOfSuspension)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndDateOfSuspension)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+
+            @*<tr>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.DayOfWeekChosenByCustomer)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.ExtraDay)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.AmountToPay)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.StartDateOfSuspension)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.EndDateOfSuspension)
+                </td>
+                <td>
+
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>*@
+        
     </tbody>
 </table>

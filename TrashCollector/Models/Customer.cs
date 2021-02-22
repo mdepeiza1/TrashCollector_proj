@@ -20,6 +20,9 @@ namespace TrashCollector.Models
         public DateTime EndDateOfSuspension { get; set; }
         public bool PickedUp { get; set; }
         public int Charge { get; set; }
+        public string AddressLine { get; set; }
+        public string State { get; set; }
+        public int ZipCode { get; set; }
 
 
 
