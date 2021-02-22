@@ -24,7 +24,7 @@ namespace TrashCollector.Controllers
         // GET: Employee
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Employees.Include(e => e.Customer).Include(e => e.IdentityUser);
+            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -37,7 +37,6 @@ namespace TrashCollector.Controllers
             }
 
             var employee = await _context.Employees
-                .Include(e => e.Customer)
                 .Include(e => e.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)
@@ -51,7 +50,7 @@ namespace TrashCollector.Controllers
         // GET: Employee/Create
         public IActionResult Create()
         {
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id");
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id");
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -69,7 +68,7 @@ namespace TrashCollector.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
             return View(employee);
         }
@@ -87,7 +86,7 @@ namespace TrashCollector.Controllers
             {
                 return NotFound();
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
             return View(employee);
         }
@@ -124,7 +123,7 @@ namespace TrashCollector.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
             return View(employee);
         }
@@ -138,7 +137,6 @@ namespace TrashCollector.Controllers
             }
 
             var employee = await _context.Employees
-                .Include(e => e.Customer)
                 .Include(e => e.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (employee == null)

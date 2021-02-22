@@ -18,9 +18,17 @@ namespace TrashCollector.Models
         public decimal AmountToPay { get; set; }
         public DateTime StartDateOfSuspension { get; set; }
         public DateTime EndDateOfSuspension { get; set; }
-        [ForeignKey("Pickup")]
-        public int PickupId { get; set; }
-        public Pickup Pickup { get; set; }
+        public bool PickedUp { get; set; }
+        public int Charge { get; set; }
+
+
+
+
+        //[ForeignKey("Pickup")]
+        //public int PickupId { get; set; }
+        //public Pickup Pickup { get; set; }
+
+
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

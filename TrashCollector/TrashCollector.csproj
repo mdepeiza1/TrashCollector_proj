@@ -6,6 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\Migrations\20210222155457_Added Pickup table to Employee table..cs" />
+    <Compile Remove="Data\Migrations\20210222155457_Added Pickup table to Employee table..Designer.cs" />
+    <Compile Remove="Data\Migrations\20210222155932_Reverting to no Pickup in Employee table..cs" />
+    <Compile Remove="Data\Migrations\20210222155932_Reverting to no Pickup in Employee table..Designer.cs" />
+    <Compile Remove="Data\Migrations\20210222171641_Updated employee without Customer..cs" />
+    <Compile Remove="Data\Migrations\20210222171641_Updated employee without Customer..Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.12" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.11" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.11" />
