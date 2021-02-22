@@ -20,14 +20,23 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DayOfWeekChosenByCustomer" class="control-label"></label>
-                <select asp-for="DayOfWeekChosenByCustomer" class="form-control"></select>
-                <span asp-validation-for="DayOfWeekChosenByCustomer" class="text-danger"></span>
+                <label asp-for="DayOfWeekChosenByCustomer">Day of Week For Pickup</label>
+                <select asp-for="DayOfWeekChosenByCustomer" class="form-control" id="DayOfWeekChosenByCustomer">
+                    <option>Sunday</option>
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="ExtraDay" class="control-label"></label>
+                <label asp-for="ExtraDay" class="control-label">Extra Day</label><br>
+                <input asp-for="ExtraDay" type ="date" class="form-control" id="ExtraDay">
+                @*<label asp-for="ExtraDay" class="control-label"></label>
                 <input asp-for="ExtraDay" class="form-control" />
-                <span asp-validation-for="ExtraDay" class="text-danger"></span>
+                <span asp-validation-for="ExtraDay" class="text-danger"></span>*@
             </div>
             <div class="form-group">
                 <label asp-for="AmountToPay" class="control-label"></label>
@@ -35,14 +44,22 @@
                 <span asp-validation-for="AmountToPay" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="StartDateOfSuspension" class="control-label"></label>
+
+                <label asp-for="StartDateOfSuspension">Start Date Of Suspension</label><br>
+                <input asp-for="StartDateOfSuspension" type="date" id="date">
+
+                @*<label asp-for="StartDateOfSuspension" class="control-label"></label>
                 <input asp-for="StartDateOfSuspension" class="form-control" />
-                <span asp-validation-for="StartDateOfSuspension" class="text-danger"></span>
+                <span asp-validation-for="StartDateOfSuspension" class="text-danger"></span>*@
             </div>
             <div class="form-group">
-                <label asp-for="EndDateOfSuspension" class="control-label"></label>
+
+                <label asp-for="EndDateOfSuspension">End Date Of Suspension</label><br>
+                <input asp-for="EndDateOfSuspension" type="date" id="date">
+
+                @*<label asp-for="EndDateOfSuspension" class="control-label"></label>
                 <input asp-for="EndDateOfSuspension" class="form-control" />
-                <span asp-validation-for="EndDateOfSuspension" class="text-danger"></span>
+                <span asp-validation-for="EndDateOfSuspension" class="text-danger"></span>*@
             </div>
             @*<div class="form-group">
                 <label asp-for="PickupId" class="control-label"></label>

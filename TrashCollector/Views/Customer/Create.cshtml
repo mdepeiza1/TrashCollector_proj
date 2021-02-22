@@ -19,8 +19,8 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label for="DayOfWeekChosenByCustomer">Day of Week For Pickup</label>
-                <select class="form-control" id="DayOfWeekChosenByCustomer">
+                <label asp-for="DayOfWeekChosenByCustomer">Day of Week For Pickup</label>
+                <select asp-for="DayOfWeekChosenByCustomer" class="form-control" id="DayOfWeekChosenByCustomer">
                     <option>Sunday</option>
                     <option>Monday</option>
                     <option>Tuesday</option>
