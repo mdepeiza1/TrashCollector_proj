@@ -22,9 +22,9 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customer
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? id)
         {
-            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);//.Include(c => c.Pickup);
+            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);//.Where(c => c.Id == id);//.Include(c => c.Pickup);
             //return View(await applicationDbContext.ToListAsync());
             return View(await applicationDbContext.ToListAsync());
         }
