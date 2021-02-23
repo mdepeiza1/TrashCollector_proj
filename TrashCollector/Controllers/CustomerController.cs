@@ -38,7 +38,7 @@ namespace TrashCollector.Controllers
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId ==
-            userId).SingleOrDefault();
+            userId).FirstOrDefault();
             //List<Customer> list = new List<Customer>();
             //list.Add(customer);
             return View(customer);
