@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210223152555_Added additional columns in Customer for full Address.")]
+    partial class AddedadditionalcolumnsinCustomerforfullAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "63c2cb57-a830-4280-aca7-9b39ae635eaa",
-                            ConcurrencyStamp = "baba3a65-0a6a-4c59-8846-3cec6ab37ae9",
+                            Id = "011bcb99-029d-475a-beef-8fa20b5d8818",
+                            ConcurrencyStamp = "78b5aa59-8710-4a8e-9756-20ff70b22ab6",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "9cd18742-dba9-45ef-89ed-41d68e532c5c",
-                            ConcurrencyStamp = "2f70524e-fa26-4d67-b7d6-3049542b5f9a",
+                            Id = "afe43d45-c716-4a34-bd96-6fc1aba40073",
+                            ConcurrencyStamp = "4243ac23-2afd-43e4-a66b-aac381ce2f1f",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

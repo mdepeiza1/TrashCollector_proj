@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -22,11 +23,25 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Customer
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);//.Where(c => c.Id == id);//.Include(c => c.Pickup);
+            //var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);//.Where(c => c.Id == id).LastOrDefaultAsync();//.Include(c => c.Pickup);
             //return View(await applicationDbContext.ToListAsync());
-            return View(await applicationDbContext.ToListAsync());
+
+
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            ////var customer = await _context.Customers.Include(c => c.IdentityUser).FirstOrDefaultAsync(x => x.Id == id);
+            ////return View(customer);
+            //var customer = await _context.Customers.Include(c=>c.IdentityUser).FirstOrDefaultAsync(x => x.IdentityUserId == userId);
+            //return View(customer);
+
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId ==
+            userId).SingleOrDefault();
+            //List<Customer> list = new List<Customer>();
+            //list.Add(customer);
+            return View(customer);
         }
 
         // GET: Customer/Details/5
@@ -67,8 +82,14 @@ namespace TrashCollector.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                customer.IdentityUserId = userId;
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
+
+                //_context.Add(customer);
+                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);

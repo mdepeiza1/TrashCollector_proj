@@ -22,10 +22,10 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(Employee e)
         {
-            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
-            //var applicationDbContext = _context.Customers.Include(e => e.IdentityUser);
+            //var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
+            var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);//.Include(c => c.IdentityUser).Where(c=>c.ZipCode == e.ZipCode); //test this line
             return View(await applicationDbContext.ToListAsync());
         }
 
