@@ -23,13 +23,29 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee
-        public async Task<IActionResult> Index(Employee e)
+        public async Task<IActionResult> Index()
         {
-            //var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
-            var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
-                //.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);//.Include(c => c.IdentityUser).Where(c=>c.ZipCode == e.ZipCode); //test this line
-            applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var e = _context.Employees.Where(e0 => e0.IdentityUserId ==
+            userId).FirstOrDefault();
+            ////var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
+            //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
+            //    //.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);//.Include(c => c.IdentityUser).Where(c=>c.ZipCode == e.ZipCode); //test this line
+            //applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
+            
+            
+            if (e == null)
+            {
+                var applicationDbContext = _context.Customers.Where(c => c.ZipCode == 0);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            else
+            {
+                var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
+                applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
+                return View(await applicationDbContext.ToListAsync());
+            }
+            //return View(await applicationDbContext.ToListAsync());
         }
 
         // GET: Employee/Details/5
@@ -40,15 +56,33 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
+            var customer = await _context.Customers
                 .Include(e => e.IdentityUser)
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
+
+            if (customer == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            if (customer.NormalPickedUp && customer.ExtraPickedUp)
+            {
+                customer.AmountToPay = 50;
+            }
+            else if (customer.NormalPickedUp)
+            {
+                customer.AmountToPay = 30;
+            }
+            else if (customer.ExtraPickedUp)
+            {
+                customer.AmountToPay = 20;
+            }
+            else
+            {
+                customer.AmountToPay = 0;
+            }
+
+            return View(customer);
         }
 
         // GET: Employee/Create
@@ -64,7 +98,7 @@ namespace TrashCollector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,ZipCode,DayOfWeekSelectedByEmployee,CustomerId,IdentityUserId")] Employee employee)
+        public async Task<IActionResult> Create(Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -87,14 +121,14 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
             {
                 return NotFound();
             }
             //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View(customer);
         }
 
         // POST: Employee/Edit/5
@@ -102,9 +136,9 @@ namespace TrashCollector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ZipCode,DayOfWeekSelectedByEmployee,CustomerId,IdentityUserId")] Employee employee)
+        public async Task<IActionResult> Edit(int id, Customer customer)
         {
-            if (id != employee.Id)
+            if (id != customer.Id)
             {
                 return NotFound();
             }
@@ -113,12 +147,12 @@ namespace TrashCollector.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.Id))
+                    if (!CustomerExists(customer.Id))
                     {
                         return NotFound();
                     }
@@ -130,8 +164,13 @@ namespace TrashCollector.Controllers
                 return RedirectToAction(nameof(Index));
             }
             //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
-            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View(customer);
+        }
+
+        private bool CustomerExists(int id)
+        {
+            return _context.Customers.Any(c => c.Id == id);
         }
 
         // GET: Employee/Delete/5

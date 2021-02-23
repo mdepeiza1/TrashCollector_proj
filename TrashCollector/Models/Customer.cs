@@ -18,7 +18,8 @@ namespace TrashCollector.Models
         public decimal AmountToPay { get; set; }
         public DateTime StartDateOfSuspension { get; set; }
         public DateTime EndDateOfSuspension { get; set; }
-        public bool PickedUp { get; set; }
+        public bool NormalPickedUp { get; set; }
+        public bool ExtraPickedUp { get; set; }
         public int Charge { get; set; }
         public string AddressLine1 { get; set; }
         public string AddressLine2 { get; set; }

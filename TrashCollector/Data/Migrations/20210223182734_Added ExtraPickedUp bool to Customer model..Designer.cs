@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210223182734_Added ExtraPickedUp bool to Customer model.")]
+    partial class AddedExtraPickedUpbooltoCustomermodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,15 +50,15 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "1ae6c261-a342-4235-a819-1f0d32cd001c",
-                            ConcurrencyStamp = "0a8b6629-cfb6-4a1d-97dd-c985bea788ba",
+                            Id = "65c40236-9626-4c2a-9018-4cc3a108d94b",
+                            ConcurrencyStamp = "2f814089-bbb1-40a6-9462-c928238453dd",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
-                            Id = "2efdce7f-0eb2-424e-a7b7-20c3c0fef6ea",
-                            ConcurrencyStamp = "5610421d-6faf-49e5-80b8-59241d3e6757",
+                            Id = "4c6fc9af-d845-464d-b80e-cb6836cf3acb",
+                            ConcurrencyStamp = "31aa2121-8b6e-4723-b104-c3ae6773e519",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         });

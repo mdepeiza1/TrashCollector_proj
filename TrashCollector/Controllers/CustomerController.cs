@@ -61,6 +61,23 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
 
+            if(customer.NormalPickedUp && customer.ExtraPickedUp)
+            {
+                customer.AmountToPay = 50;
+            }
+            else if (customer.NormalPickedUp)
+            {
+                customer.AmountToPay = 30;
+            }
+            else if (customer.ExtraPickedUp)
+            {
+                customer.AmountToPay = 20;
+            }
+            else
+            {
+                customer.AmountToPay = 0;
+            }
+
             return View(customer);
         }
 
