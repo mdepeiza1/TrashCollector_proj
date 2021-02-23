@@ -16,7 +16,7 @@ namespace TrashCollector.Controllers
     public class EmployeeController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        bool init = true;
         public EmployeeController(ApplicationDbContext context)
         {
             _context = context;
@@ -42,7 +42,15 @@ namespace TrashCollector.Controllers
             else
             {
                 var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
-                applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
+                if(init)
+                {
+                    applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
+                    init = false;
+                }
+                else
+                {
+                    applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == e.DayOfWeekSelectedByEmployee);
+                }
                 return View(await applicationDbContext.ToListAsync());
             }
             //return View(await applicationDbContext.ToListAsync());
@@ -167,6 +175,86 @@ namespace TrashCollector.Controllers
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
+
+
+
+
+
+        // GET: Employee/Edit/5
+        public async Task<IActionResult> EditIndex()
+        {
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var e = _context.Employees.Where(e0 => e0.IdentityUserId ==
+            userId).FirstOrDefault();
+
+            //var employee = await _context.Employees.FindAsync(id);
+            if (e == null)
+            {
+                return NotFound();
+            }
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", e.IdentityUserId);
+            return View(e);
+        }
+
+        // POST: Employee/Edit/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> EditIndex(Employee e)
+        {
+            //if (id != e.Id)
+            //{
+            //    return NotFound();
+            //}
+
+            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            //var e2 = _context.Employees.Where(e1 => e1.IdentityUserId ==
+            //userId).FirstOrDefault();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(e);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!EmployeeExists(e.Id))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", e.IdentityUserId);
+            return View(e);
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private bool CustomerExists(int id)
         {

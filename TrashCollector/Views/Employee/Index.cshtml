@@ -10,6 +10,7 @@
 
 <p>
     <a asp-action="Create">Create New</a>
+    <a asp-action="EditIndex">Edit Day of the Week Selected</a>
 </p>
 <table class="table">
     <thead>
@@ -22,6 +23,12 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.ZipCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NormalPickedUp)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExtraPickedUp)
             </th>
             @*<th>
             @Html.DisplayNameFor(model => model.DayOfWeekSelectedByEmployee)
@@ -47,6 +54,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.ZipCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NormalPickedUp)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ExtraPickedUp)
             </td>
             @*<td>
             @Html.DisplayFor(modelItem => item.DayOfWeekSelectedByEmployee)
