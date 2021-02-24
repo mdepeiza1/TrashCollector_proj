@@ -42,21 +42,26 @@ namespace TrashCollector.Controllers
             else
             {
                 //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
-                if(init)
-                {
-                    var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode); 
-                    //&& c.DayOfWeekChosenByCustomer.Equals(DateTime.Today.DayOfWeek));
-                    //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
-                    init = false;
-                    return View(await applicationDbContext.ToListAsync());
-                }
-                else
-                {
-                    var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
+                //if(init)
+                //{
+                //    //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
+                //    int dayOfWeek = (int)DateTime.Today.DayOfWeek;
+                //    var applicationDbContext = _context.Customers.Where(c => (int)c.DayOfWeekChosenByCustomer == dayOfWeek 
+                //    && c.ZipCode == e.ZipCode);
+                //    //&& c.DayOfWeekChosenByCustomer.Equals(DateTime.Today.DayOfWeek));
+                //    //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
+                //    init = false;
+                //    return View(await applicationDbContext.ToListAsync());
+                //}
+                //else
+                //{
+                    int dayOfWeek = (int)e.DayOfWeekSelectedByEmployee;
+                    var applicationDbContext = _context.Customers.Where(c => (int)c.DayOfWeekChosenByCustomer == dayOfWeek
+                    && c.ZipCode == e.ZipCode);
                     //&& c.DayOfWeekChosenByCustomer.Equals(e.DayOfWeekSelectedByEmployee));
                     //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == e.DayOfWeekSelectedByEmployee);
                     return View(await applicationDbContext.ToListAsync());
-                }
+                //}
             }
             //return View(await applicationDbContext.ToListAsync());
         }
@@ -117,6 +122,7 @@ namespace TrashCollector.Controllers
             {
                 var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
                 employee.IdentityUserId = userId;
+                employee.DayOfWeekSelectedByEmployee = DateTime.Today.DayOfWeek;
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -229,6 +235,7 @@ namespace TrashCollector.Controllers
             //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             //var e2 = _context.Employees.Where(e1 => e1.IdentityUserId ==
             //userId).FirstOrDefault();
+            init = false;
             if (ModelState.IsValid)
             {
                 try
