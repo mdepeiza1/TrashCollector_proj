@@ -32,7 +32,7 @@ namespace TrashCollector.Controllers
             //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
             //    //.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);//.Include(c => c.IdentityUser).Where(c=>c.ZipCode == e.ZipCode); //test this line
             //applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
-            
+        
             
             if (e == null)
             {
@@ -41,17 +41,22 @@ namespace TrashCollector.Controllers
             }
             else
             {
-                var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
+                //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
                 if(init)
                 {
-                    applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
+                    var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode); 
+                    //&& c.DayOfWeekChosenByCustomer.Equals(DateTime.Today.DayOfWeek));
+                    //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
                     init = false;
+                    return View(await applicationDbContext.ToListAsync());
                 }
                 else
                 {
-                    applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == e.DayOfWeekSelectedByEmployee);
+                    var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
+                    //&& c.DayOfWeekChosenByCustomer.Equals(e.DayOfWeekSelectedByEmployee));
+                    //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == e.DayOfWeekSelectedByEmployee);
+                    return View(await applicationDbContext.ToListAsync());
                 }
-                return View(await applicationDbContext.ToListAsync());
             }
             //return View(await applicationDbContext.ToListAsync());
         }
@@ -155,7 +160,15 @@ namespace TrashCollector.Controllers
             {
                 try
                 {
-                    _context.Update(customer);
+                    var c = _context.Customers.Where(c0 => c0.Id == customer.Id).FirstOrDefault();
+                    customer.IdentityUserId = c.IdentityUserId;
+                    //_context.Customers.Remove(c);
+                    //_context.Customers.Add(customer);
+                    //_context.Customers.Update(customer);
+                    c.NormalPickedUp = customer.NormalPickedUp;
+                    c.ExtraPickedUp = customer.ExtraPickedUp;
+                    //_context.Update(customer.NormalPickedUp);
+                    //_context.Update(customer.ExtraPickedUp);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -220,7 +233,12 @@ namespace TrashCollector.Controllers
             {
                 try
                 {
-                    _context.Update(e);
+                    var e1 = _context.Employees.Where(e0 => e0.Id == e.Id).FirstOrDefault();
+                    _context.Employees.Remove(e1);
+                    e.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    _context.Employees.Add(e);
+                    //_context.Employees.Update(e);
+                    //_context.Update(e);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
