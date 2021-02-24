@@ -42,11 +42,11 @@ namespace TrashCollector.Controllers
             else
             {
                 //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
-                //if(init)
+                //if (init)
                 //{
                 //    //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == e.ZipCode);
                 //    int dayOfWeek = (int)DateTime.Today.DayOfWeek;
-                //    var applicationDbContext = _context.Customers.Where(c => (int)c.DayOfWeekChosenByCustomer == dayOfWeek 
+                //    var applicationDbContext = _context.Customers.Where(c => (int)c.DayOfWeekChosenByCustomer == dayOfWeek
                 //    && c.ZipCode == e.ZipCode);
                 //    //&& c.DayOfWeekChosenByCustomer.Equals(DateTime.Today.DayOfWeek));
                 //    //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == DateTime.Today.DayOfWeek);
@@ -55,12 +55,22 @@ namespace TrashCollector.Controllers
                 //}
                 //else
                 //{
-                    int dayOfWeek = (int)e.DayOfWeekSelectedByEmployee;
-                    var applicationDbContext = _context.Customers.Where(c => (int)c.DayOfWeekChosenByCustomer == dayOfWeek
-                    && c.ZipCode == e.ZipCode);
-                    //&& c.DayOfWeekChosenByCustomer.Equals(e.DayOfWeekSelectedByEmployee));
-                    //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == e.DayOfWeekSelectedByEmployee);
-                    return View(await applicationDbContext.ToListAsync());
+                int dayOfWeek = (int)e.DayOfWeekSelectedByEmployee;
+
+                //Enumerable.Cast<int>(_context.Customers.Select(c=> c.ExtraDay.DayOfWeek));
+                //Enumerable.Cast<int>(_context.Customers.Select(c => c.DayOfWeekChosenByCustomer));
+                var applicationDbContext = _context.Customers.ToList().Where(c => ((int)c.DayOfWeekChosenByCustomer == dayOfWeek ||
+                    (int)c.ExtraDay.DayOfWeek == dayOfWeek) && c.ZipCode == e.ZipCode);
+                
+                //applicationDbContext.Where(c => c.ZipCode == e.ZipCode);
+
+                //var applicationDbContext = _context.Customers.Where(c => (int)c.DayOfWeekChosenByCustomer == dayOfWeek ||
+                //     (int)c.ExtraDay.DayOfWeek == dayOfWeek
+                //    && c.ZipCode == e.ZipCode);
+
+                //&& c.DayOfWeekChosenByCustomer.Equals(e.DayOfWeekSelectedByEmployee));
+                //applicationDbContext = applicationDbContext.Where(a => a.DayOfWeekChosenByCustomer == e.DayOfWeekSelectedByEmployee);
+                return View(applicationDbContext);
                 //}
             }
             //return View(await applicationDbContext.ToListAsync());
