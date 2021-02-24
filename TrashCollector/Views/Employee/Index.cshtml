@@ -25,6 +25,12 @@
                 @Html.DisplayNameFor(model => model.ExtraDay)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.StartDateOfSuspension)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDateOfSuspension)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ZipCode)
             </th>
             <th>
@@ -59,6 +65,12 @@
                 @Html.DisplayFor(modelItem => item.ExtraDay)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.StartDateOfSuspension)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDateOfSuspension)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.ZipCode)
             </td>
             <td>
@@ -76,11 +88,13 @@
             @*<td>
             @Html.DisplayFor(modelItem => item.IdentityUser.Id)
         </td>*@
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
+        <td>
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            @*<a asp-action="MapDetails" asp-route-id="@item.Id">Map</a> |*@
+            <a href="https://www.google.com/maps/search/?api=1&query=grocery+stores">Google Map</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+        </td>
         </tr>
         }
     </tbody>
