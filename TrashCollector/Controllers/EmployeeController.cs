@@ -113,42 +113,42 @@ namespace TrashCollector.Controllers
             return View(customer);
         }
 
-        // GET: Employee/Details/5
-        public async Task<IActionResult> MapDetails(int? id) // update this
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Employee/Details/5
+        //public async Task<IActionResult> MapDetails(int? id) // update this
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var customer = await _context.Customers
-                .Include(e => e.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
+        //    var customer = await _context.Customers
+        //        .Include(e => e.IdentityUser)
+        //        .FirstOrDefaultAsync(m => m.Id == id);
 
-            if (customer == null)
-            {
-                return NotFound();
-            }
+        //    if (customer == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            if (customer.NormalPickedUp && customer.ExtraPickedUp)
-            {
-                customer.AmountToPay = 50;
-            }
-            else if (customer.NormalPickedUp)
-            {
-                customer.AmountToPay = 30;
-            }
-            else if (customer.ExtraPickedUp)
-            {
-                customer.AmountToPay = 20;
-            }
-            else
-            {
-                customer.AmountToPay = 0;
-            }
+        //    if (customer.NormalPickedUp && customer.ExtraPickedUp)
+        //    {
+        //        customer.AmountToPay = 50;
+        //    }
+        //    else if (customer.NormalPickedUp)
+        //    {
+        //        customer.AmountToPay = 30;
+        //    }
+        //    else if (customer.ExtraPickedUp)
+        //    {
+        //        customer.AmountToPay = 20;
+        //    }
+        //    else
+        //    {
+        //        customer.AmountToPay = 0;
+        //    }
 
-            return View(customer);
-        }
+        //    return View(customer);
+        //}
 
         // GET: Employee/Create
         public IActionResult Create()

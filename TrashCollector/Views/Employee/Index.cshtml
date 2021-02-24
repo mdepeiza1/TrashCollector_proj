@@ -92,7 +92,8 @@
             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
             @*<a asp-action="MapDetails" asp-route-id="@item.Id">Map</a> |*@
-            <a href="https://www.google.com/maps/search/?api=1&query=grocery+stores">Google Map</a> |
+            <a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},+{1},+{2},+{3},+{4},+", item.AddressLine1, item.AddressLine2
+                    , item.City, item.State, item.ZipCode)'>Google Map</a> |
             <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
         </td>
         </tr>
