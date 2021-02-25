@@ -350,4 +350,5 @@ MigrationBackup/
 .ionide/
 
 .secret/
+TrashCollector/Secret
 TrashCollector/secret
