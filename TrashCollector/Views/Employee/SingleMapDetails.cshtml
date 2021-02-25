@@ -1,0 +1,27 @@
+﻿@model TrashCollector.Models.Customer
+
+@{
+    ViewData["Title"] = "SingleMapDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Map</h1>
+
+<div>
+    <h4>Map</h4>
+    <hr />
+    @*<iframe class="embed-responsive-item" src="https://google.com" width="600" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>*@
+    @*<object type="text/html" data="https://www.google.com/maps/search/?api=1&query=centurylink+field" width="500" height="500">
+    </object>*@
+    <script type="text/html" src="https://www.google.com/maps/search/?api=1&query=centurylink+field"></script>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+<script>
+    // JAVASCRIPT GOES HERE
+    // code that generates the map with the customer's address pinned and selects an element in your HTML body to render
+    // The map needs latitutde and longitude coordinates
+
+</script>
