@@ -36,8 +36,10 @@ namespace TrashCollector.Controllers
             
             if (e == null)
             {
-                var applicationDbContext = _context.Customers.Where(c => c.ZipCode == 0);
-                return View(await applicationDbContext.ToListAsync());
+                    // Redirect to create action
+                    return RedirectToAction("Create");
+                //var applicationDbContext = _context.Customers.Where(c => c.ZipCode == 0);
+                //return View(await applicationDbContext.ToListAsync());
             }
             else
             {
@@ -60,7 +62,7 @@ namespace TrashCollector.Controllers
                 //Enumerable.Cast<int>(_context.Customers.Select(c=> c.ExtraDay.DayOfWeek));
                 //Enumerable.Cast<int>(_context.Customers.Select(c => c.DayOfWeekChosenByCustomer));
                 var applicationDbContext = _context.Customers.ToList().Where(c => ((int)c.DayOfWeekChosenByCustomer == dayOfWeek ||
-                    (int)c.ExtraDay.DayOfWeek == dayOfWeek) && c.ZipCode == e.ZipCode);
+                    (int)c.ExtraDay.DayOfWeek == dayOfWeek) && c.ZipCode == e.ZipCode && (!(c.StartDateOfSuspension < DateTime.Today && DateTime.Today < c.EndDateOfSuspension)));
                 
                 //applicationDbContext.Where(c => c.ZipCode == e.ZipCode);
 
@@ -93,22 +95,6 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
 
-            if (customer.NormalPickedUp && customer.ExtraPickedUp)
-            {
-                customer.AmountToPay = 50;
-            }
-            else if (customer.NormalPickedUp)
-            {
-                customer.AmountToPay = 30;
-            }
-            else if (customer.ExtraPickedUp)
-            {
-                customer.AmountToPay = 20;
-            }
-            else
-            {
-                customer.AmountToPay = 0;
-            }
 
             return View(customer);
         }
@@ -222,6 +208,24 @@ namespace TrashCollector.Controllers
                     c.ExtraPickedUp = customer.ExtraPickedUp;
                     //_context.Update(customer.NormalPickedUp);
                     //_context.Update(customer.ExtraPickedUp);
+
+                    if (customer.NormalPickedUp && customer.ExtraPickedUp)
+                    {
+                        c.AmountToPay = 50;
+                    }
+                    else if (customer.NormalPickedUp)
+                    {
+                        c.AmountToPay = 30;
+                    }
+                    else if (customer.ExtraPickedUp)
+                    {
+                        c.AmountToPay = 20;
+                    }
+                    else
+                    {
+                        c.AmountToPay = 0;
+                    }
+
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

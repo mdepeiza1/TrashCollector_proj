@@ -39,8 +39,13 @@ namespace TrashCollector.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId ==
             userId).FirstOrDefault();
-            //List<Customer> list = new List<Customer>();
-            //list.Add(customer);
+
+            if(customer == null) //test this
+            {
+                // Redirect to create action
+                return RedirectToAction("Create");
+            }
+           
             return View(customer);
         }
 
@@ -157,6 +162,9 @@ namespace TrashCollector.Controllers
                     customer.City = c1.City;
                     customer.State = c1.State;
                     customer.ZipCode = c1.ZipCode;
+                    customer.Charge = c1.Charge;
+                    customer.ExtraPickedUp = c1.ExtraPickedUp;
+                    customer.NormalPickedUp = c1.NormalPickedUp;
                     _context.Customers.Remove(c1);
                     _context.Customers.Add(customer);
 
