@@ -1,8 +1,9 @@
 ﻿@model TrashCollector.Models.Customer
+@using TrashCollector.Secret
 
 @{
     ViewData["Title"] = "SingleMapDetails";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+ Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h1>Map</h1>
@@ -18,7 +19,7 @@
     <div id="map"></div>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
-    <script src='@String.Format("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap&libraries=&v=weekly", secret_key)
+    <script src='@String.Format("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap&libraries=&v=weekly", API_Key.Key)
             async></script>
 </div>
 <div>
@@ -29,12 +30,12 @@
     // JAVASCRIPT GOES HERE
     // code that generates the map with the customer's address pinned and selects an element in your HTML body to render
     // The map needs latitutde and longitude coordinates
-        let map;
+    let map;
 
-      function initMap() {
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: -34.397, lng: 150.644 },
-                zoom: 8,
-            });
-      }
+    function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8,
+        });
+    }
 </script>
