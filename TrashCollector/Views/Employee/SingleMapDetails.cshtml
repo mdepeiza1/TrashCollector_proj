@@ -12,8 +12,14 @@
     <hr />
     @*<iframe class="embed-responsive-item" src="https://google.com" width="600" height="315" frameborder="0" allowfullscreen="allowfullscreen"></iframe>*@
     @*<object type="text/html" data="https://www.google.com/maps/search/?api=1&query=centurylink+field" width="500" height="500">
-    </object>*@
-    <script type="text/html" src="https://www.google.com/maps/search/?api=1&query=centurylink+field"></script>
+        </object>*@
+    @*<script type="text/html" src="https://www.google.com/maps/search/?api=1&query=centurylink+field"></script>*@
+
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script src='@String.Format("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap&libraries=&v=weekly", secret_key)
+            async></script>
 </div>
 <div>
     <a asp-action="Index">Back to List</a>
@@ -23,5 +29,12 @@
     // JAVASCRIPT GOES HERE
     // code that generates the map with the customer's address pinned and selects an element in your HTML body to render
     // The map needs latitutde and longitude coordinates
+        let map;
 
+      function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: -34.397, lng: 150.644 },
+                zoom: 8,
+            });
+      }
 </script>
