@@ -121,8 +121,10 @@ namespace TrashCollector.Controllers
             {
                 return NotFound();
             }
-
-            var customer = await _context.Customers.FindAsync(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.IdentityUserId ==
+            userId).FirstOrDefault();
+            //var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
             {
                 return NotFound();
@@ -137,18 +139,28 @@ namespace TrashCollector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DayOfWeekChosenByCustomer,ExtraDay,AmountToPay,StartDateOfSuspension,EndDateOfSuspension,PickupId,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(Customer customer)
         {
-            if (id != customer.Id)
-            {
-                return NotFound();
-            }
+            //if (id != customer.Id)
+            //{
+            //    return NotFound();
+            //}
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(customer);
+                    var c1 = _context.Customers.Where(c0 => c0.Id == customer.Id).FirstOrDefault();
+                    customer.IdentityUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+                    customer.AddressLine1 = c1.AddressLine1;
+                    customer.AddressLine2 = c1.AddressLine2;
+                    customer.City = c1.City;
+                    customer.State = c1.State;
+                    customer.ZipCode = c1.ZipCode;
+                    _context.Customers.Remove(c1);
+                    _context.Customers.Add(customer);
+
+                    //_context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

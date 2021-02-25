@@ -11,6 +11,7 @@
 <p>
     <a asp-action="Create">Create New</a>
     <a asp-action="EditIndex">Edit Day of the Week Selected</a>
+    <a asp-action="Delete">Delete Employee Information</a>
 </p>
 <table class="table">
     <thead>
@@ -93,8 +94,9 @@
             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
             @*<a asp-action="MapDetails" asp-route-id="@item.Id">Map</a> |*@
             <a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},+{1},+{2},+{3},+{4},+", item.AddressLine1, item.AddressLine2
-                    , item.City, item.State, item.ZipCode)'>Google Map</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    , item.City, item.State, item.ZipCode)'>Google Map</a> 
+            @*|<a asp-action="Delete" asp-route-id="@item.Id">Delete Employee Information</a>*@
+
         </td>
         </tr>
         }

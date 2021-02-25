@@ -334,22 +334,42 @@ namespace TrashCollector.Controllers
         }
 
         // GET: Employee/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        //public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete()
         {
-            if (id == null)
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var e = _context.Employees.Where(e0 => e0.IdentityUserId ==
+            userId).FirstOrDefault();
+
+            //var employee = await _context.Employees.FindAsync(id);
+            if (e == null)
             {
                 return NotFound();
             }
+            //ViewData["CustomerId"] = new SelectList(_context.Customers, "Id", "Id", employee.CustomerId);
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", e.IdentityUserId);
+            return View(e);
 
-            var employee = await _context.Employees
-                .Include(e => e.IdentityUser)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (employee == null)
-            {
-                return NotFound();
-            }
 
-            return View(employee);
+
+            //if (id == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //var employee = await _context.Employees
+            //    .Include(e => e.IdentityUser)
+            //    .FirstOrDefaultAsync(m => m.Id == id);
+            //if (employee == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //return View(employee);
         }
 
         // POST: Employee/Delete/5
