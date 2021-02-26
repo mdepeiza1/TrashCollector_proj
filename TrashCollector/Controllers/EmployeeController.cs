@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using TrashCollector.Data;
 using TrashCollector.Models;
+using TrashCollector.Secret;
 
 namespace TrashCollector.Controllers
 {
@@ -319,7 +322,31 @@ namespace TrashCollector.Controllers
 
 
 
+        // GET: Employee/Details/5
+        public async Task<IActionResult> SingleMapDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            //HttpClient httpClient = new HttpClient();
+            //HttpResponseMessage httpResponseMessage = new HttpResponseMessage();
 
+            var customer = await _context.Customers
+                .Include(e => e.IdentityUser)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            //JsonConvert.DeserializeObject(await httpClient.GetAsync(String.Format("https://maps.googleapis.com/maps/api/geocode/json?address=Winnetka&bounds=34.172684,-118.604794|34.236144,-118.500938&key=AIzaSyDmxMLmkJyc8XIRXchW7ISQ332UEPz6ME8", API_Key.Key)));
+
+
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+
+            return View(customer);
+        }
 
 
 

@@ -12,7 +12,7 @@
     @*<a asp-action="Create">Create New</a>*@
     <a asp-action="EditIndex">Edit Employee Information</a>
     <a asp-action="Delete">Delete Employee Information</a>
-    <a asp-action="MultipleLocationMap">Multiple Location Map</a>
+    @*<a asp-action="MultipleLocationMap">Multiple Location Map</a>*@
 </p>
 <table class="table">
     <thead>
@@ -99,6 +99,8 @@
                     , item.City, item.State, item.ZipCode)'>Google Map</a>*@
 
              <a asp-action="SingleMapDetails" asp-route-id="@item.Id">Google Map</a>
+
+
             @*|<a asp-action="Delete" asp-route-id="@item.Id">Delete Employee Information</a>*@
 
         </td>
