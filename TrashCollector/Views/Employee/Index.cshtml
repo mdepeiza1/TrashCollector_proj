@@ -9,7 +9,6 @@
 <h1>Index</h1>
 
 <p>
-    @*<a asp-action="Create">Create New</a>*@
     <a asp-action="EditIndex">Edit Employee Information</a>
     <a asp-action="Delete">Delete Employee Information</a>
     @*<a asp-action="MultipleLocationMap">Multiple Location Map</a>*@
@@ -41,15 +40,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.ExtraPickedUp)
             </th>
-            @*<th>
-            @Html.DisplayNameFor(model => model.DayOfWeekSelectedByEmployee)
-        </th>*@
-            @*<th>
-            @Html.DisplayNameFor(model => model.Customer)
-        </th>*@
-            @*<th>
-            @Html.DisplayNameFor(model => model.IdentityUser)
-        </th>*@
             <th></th>
         </tr>
     </thead>
@@ -81,28 +71,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ExtraPickedUp)
             </td>
-            @*<td>
-            @Html.DisplayFor(modelItem => item.DayOfWeekSelectedByEmployee)
-        </td>*@
-            @*<td>
-            @Html.DisplayFor(modelItem => item.Customer.Id)
-        </td>*@
-            @*<td>
-            @Html.DisplayFor(modelItem => item.IdentityUser.Id)
-        </td>*@
         <td>
             <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
             <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-            @*<a asp-action="MapDetails" asp-route-id="@item.Id">Map</a> |*@
-
-            @*<a href='@string.Format("https://www.google.com/maps/search/?api=1&query={0},+{1},+{2},+{3},+{4},+", item.AddressLine1, item.AddressLine2
-                    , item.City, item.State, item.ZipCode)'>Google Map</a>*@
-
              <a asp-action="SingleMapDetails" asp-route-id="@item.Id">Google Map</a>
-
-
-            @*|<a asp-action="Delete" asp-route-id="@item.Id">Delete Employee Information</a>*@
-
         </td>
         </tr>
         }

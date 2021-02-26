@@ -30,10 +30,6 @@ namespace TrashCollector.Models
 
 
 
-        //[ForeignKey("Pickup")]
-        //public int PickupId { get; set; }
-        //public Pickup Pickup { get; set; }
-
 
 
         [ForeignKey("IdentityUser")]

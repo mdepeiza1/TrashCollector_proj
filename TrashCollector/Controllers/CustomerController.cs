@@ -25,16 +25,6 @@ namespace TrashCollector.Controllers
         // GET: Customer
         public async Task<IActionResult> Index()
         {
-            //var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);//.Where(c => c.Id == id).LastOrDefaultAsync();//.Include(c => c.Pickup);
-            //return View(await applicationDbContext.ToListAsync());
-
-
-            //var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            ////var customer = await _context.Customers.Include(c => c.IdentityUser).FirstOrDefaultAsync(x => x.Id == id);
-            ////return View(customer);
-            //var customer = await _context.Customers.Include(c=>c.IdentityUser).FirstOrDefaultAsync(x => x.IdentityUserId == userId);
-            //return View(customer);
-
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId ==
@@ -59,7 +49,6 @@ namespace TrashCollector.Controllers
 
             var customer = await _context.Customers
                 .Include(c => c.IdentityUser)
-                //.Include(c => c.Pickup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {
@@ -90,7 +79,6 @@ namespace TrashCollector.Controllers
         public IActionResult Create()
         {
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id");
-            //ViewData["PickupId"] = new SelectList(_context.Pickups, "Id", "Id");
             return View();
         }
 
@@ -99,7 +87,6 @@ namespace TrashCollector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Name,DayOfWeekChosenByCustomer")] Customer customer)
         public async Task<IActionResult> Create(Customer customer)
         {
             if (ModelState.IsValid)
@@ -110,12 +97,9 @@ namespace TrashCollector.Controllers
                 _context.Add(customer);
                 await _context.SaveChangesAsync();
 
-                //_context.Add(customer);
-                //await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-            //ViewData["PickupId"] = new SelectList(_context.Pickups, "Id", "Id", customer.PickupId);
             return View(customer);
         }
 
@@ -129,13 +113,11 @@ namespace TrashCollector.Controllers
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var customer = _context.Customers.Where(c => c.IdentityUserId ==
             userId).FirstOrDefault();
-            //var customer = await _context.Customers.FindAsync(id);
             if (customer == null)
             {
                 return NotFound();
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-           // ViewData["PickupId"] = new SelectList(_context.Pickups, "Id", "Id", customer.PickupId);
             return View(customer);
         }
 
@@ -146,10 +128,6 @@ namespace TrashCollector.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Customer customer)
         {
-            //if (id != customer.Id)
-            //{
-            //    return NotFound();
-            //}
 
             if (ModelState.IsValid)
             {
@@ -168,7 +146,6 @@ namespace TrashCollector.Controllers
                     _context.Customers.Remove(c1);
                     _context.Customers.Add(customer);
 
-                    //_context.Update(customer);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -185,7 +162,6 @@ namespace TrashCollector.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
-           // ViewData["PickupId"] = new SelectList(_context.Pickups, "Id", "Id", customer.PickupId);
             return View(customer);
         }
 
@@ -199,7 +175,6 @@ namespace TrashCollector.Controllers
 
             var customer = await _context.Customers
                 .Include(c => c.IdentityUser)
-               // .Include(c => c.Pickup)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (customer == null)
             {

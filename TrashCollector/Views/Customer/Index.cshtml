@@ -32,78 +32,44 @@
             <th>
                 @Html.DisplayNameFor(model => model.EndDateOfSuspension)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Pickup)
-                </th>*@
-            @*<th>
-                    @Html.DisplayNameFor(model => model.IdentityUser)
-                </th>*@
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @*@foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DayOfWeekChosenByCustomer)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ExtraDay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AmountToPay)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StartDateOfSuspension)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EndDateOfSuspension)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
-        }*@
 
             <tr>
                 <td>
-                    @if (Model != null) @*&& !String.IsNullOrEmpty(Model.Name))*@
+                    @if (Model != null)
                     {
                         @Html.DisplayFor(model => model.Name)
                     }
                 </td>
                 <td>
-                    @if (Model != null) @*&& Model.DayOfWeekChosenByCustomer != null)*@
+                    @if (Model != null)
                     {
                         @Html.DisplayFor(model => model.DayOfWeekChosenByCustomer)
                     }
                 </td>
                 <td>
-                    @if (Model != null) @*&& Model.ExtraDay != null)*@
+                    @if (Model != null) 
                     {
                         @Html.DisplayFor(model => model.ExtraDay)
                     }
                 </td>
                 <td>
-                    @if (Model != null) @*&& Model.AmountToPay != null)*@
+                    @if (Model != null) 
                     {
                         @Html.DisplayFor(model => model.AmountToPay)
                     }
                 </td>
                 <td>
-                    @if (Model != null) @*&& Model.StartDateOfSuspension != null)*@
+                    @if (Model != null) 
                     {
                         @Html.DisplayFor(model => model.StartDateOfSuspension)
                     }
                 </td>
                 <td>
-                    @if (Model != null) @*&& Model.EndDateOfSuspension != null)*@
+                    @if (Model != null) 
                     {
                         @Html.DisplayFor(model => model.EndDateOfSuspension)
                     }
